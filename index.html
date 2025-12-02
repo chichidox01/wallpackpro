@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WallPackPro - Premium Mobile Wallpapers</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scale-up {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
+        .animate-scale-up { animation: scale-up 0.3s ease-out forwards; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-neutral-950 text-white selection:bg-purple-500 selection:text-white">
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- ICONS (Inline SVGs to remove dependencies) ---
+        const Icon = ({ path, className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                {path}
+            </svg>
+        );
+
+        const Icons = {
+            Download: (props) => <Icon {...props} path={<><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></>} />,
+            Lock: (props) => <Icon {...props} path={<><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>} />,
+            X: (props) => <Icon {...props} path={<><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>} />,
+            ChevronRight: (props) => <Icon {...props} path={<polyline points="9 18 15 12 9 6"/>} />,
+            ChevronLeft: (props) => <Icon {...props} path={<polyline points="15 18 9 12 15 6"/>} />,
+            Smartphone: (props) => <Icon {...props} path={<><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></>} />,
+            ShieldCheck: (props) => <Icon {...props} path={<><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></>} />,
+            Zap: (props) => <Icon {...props} path={<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>} />
+        };
+
+        // --- DATA UTILS ---
+        const generateRelatedImages = (baseId, category) => {
+            const pools = {
+                dark: ["1618005182384-a83a8bd57fbe", "1493246507139-91e8fad9978e", "1620121639263-448fcf7d3d2b", "1550684848-fac1c5b4e853", "1534237710431-e2fc698436d0", "1550088815-53ef63400b3b", "1507608616759-54f48f0af0ee", "1519608487953-e999c86e7455"],
+                nature: ["1511497584788-876760111969", "1470071459604-3b5ec3a7fe05", "1441974231531-c6227db76b6e", "1502082553048-f009c371b9b5", "1464822759023-fed622ff2c3b", "1518173946687-a4c8892bbd9f", "1472214103451-9374bd1c798e", "1501854140884-074cf2b21d25"],
+                urban: ["1519501025264-65ba15a82390", "1477959858617-67f85cf4f1df", "1480714378408-67cf0d13bc1b", "1514565131-fce0801e5863", "1496564203457-11bb12075d90", "1444723121867-c61269e831f1", "1479839672679-a472b80d8863", "1461398365135-e109d2ffa766"],
+                abstract: ["1541701494587-cb58502866ab", "1550684848-fac1c5b4e853", "1541701494587-cb58502866ab", "1563089145-599997674d42", "1451187580459-43490279c0fa", "1516663235285-845964f40d1f", "1582234372722-50d7ccc30ebd", "1557682250-336325413183"],
+            };
+            const pool = pools[category] || pools.abstract;
+            return pool.map((id, index) => ({
+                id: `${baseId}-${index}`,
+                image: `https://images.unsplash.com/photo-${id}?q=80&w=800&auto=format&fit=crop`,
+                title: `Pack Wallpaper #${index + 1}`
+            }));
+        };
+
+        // --- PACKS DATA ---
+        // Added lockerUrl to each pack
+        const PACKS = [
+            { 
+                id: 1, 
+                title: "10 Spectacular Live Wallpapers", 
+                category: "live",
+                lockerUrl: "https://execmods.com/cl/i/o463xr",
+                // Main cover image: 1.png
+                coverImage: "images/1.png",
+                // Related images: 2.png to 10.png (Total 9 related images)
+                related: Array(9).fill(null).map((_, i) => ({
+                    id: `p1-${i}`,
+                    image: `images/${i + 2}.png`, // i=0 is 2.png, i=8 is 10.png
+                    title: `Live Wallpaper #${i + 1}`
+                }))
+            },
+            { 
+                id: 2, 
+                title: "Samsung Galaxy: Misty Forest", 
+                category: "nature",
+                lockerUrl: "https://execmods.com/cl/i/jfju65",
+                coverImage: "https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1932&auto=format&fit=crop",
+                related: generateRelatedImages('p2', 'nature')
+            },
+            { 
+                id: 3, 
+                title: "Abstract Waves: Deep Ocean", 
+                category: "abstract",
+                lockerUrl: "https://execmods.com/cl/i/jfju65",
+                coverImage: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop",
+                related: generateRelatedImages('p3', 'abstract')
+            },
+            { 
+                id: 4, 
+                title: "Mountain Peak: Sunset Glow", 
+                category: "nature",
+                lockerUrl: "https://execmods.com/cl/i/jfju65",
+                coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop",
+                related: generateRelatedImages('p4', 'nature')
+            },
+            { 
+                id: 5, 
+                title: "Urban City: Night Lights", 
+                category: "urban",
+                lockerUrl: "https://execmods.com/cl/i/jfju65",
+                coverImage: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1964&auto=format&fit=crop",
+                related: generateRelatedImages('p5', 'urban')
+            },
+            { 
+                id: 6, 
+                title: "Minimalist Geometry: Dark", 
+                category: "dark",
+                lockerUrl: "https://execmods.com/cl/i/jfju65",
+                coverImage: "https://images.unsplash.com/photo-1550088815-53ef63400b3b?q=80&w=1964&auto=format&fit=crop",
+                related: generateRelatedImages('p6', 'dark')
+            },
+            { 
+                id: 7, 
+                title: "Nature Series: Rain Drops", 
+                category: "nature",
+                lockerUrl: "https://execmods.com/cl/i/jfju65",
+                coverImage: "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?q=80&w=1887&auto=format&fit=crop",
+                related: generateRelatedImages('p7', 'nature')
+            },
+            { 
+                id: 8, 
+                title: "Cyberpunk Visions: Neon", 
+                category: "urban",
+                lockerUrl: "https://execmods.com/cl/i/jfju65",
+                coverImage: "https://images.unsplash.com/photo-1534237710431-e2fc698436d0?q=80&w=1887&auto=format&fit=crop",
+                related: generateRelatedImages('p8', 'urban')
+            },
+            { 
+                id: 9, 
+                title: "Desert Dunes: Gold", 
+                category: "nature",
+                lockerUrl: "https://execmods.com/cl/i/jfju65",
+                coverImage: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2070&auto=format&fit=crop",
+                related: generateRelatedImages('p9', 'nature')
+            },
+            { 
+                id: 10, 
+                title: "Space Voyager: Nebula", 
+                category: "abstract",
+                lockerUrl: "https://execmods.com/cl/i/jfju65",
+                coverImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
+                related: generateRelatedImages('p10', 'abstract')
+            },
+            { 
+                id: 11, 
+                title: "Liquid Metal: Chrome", 
+                category: "abstract",
+                lockerUrl: "https://execmods.com/cl/i/jfju65",
+                coverImage: "https://images.unsplash.com/photo-1516663235285-845964f40d1f?q=80&w=1887&auto=format&fit=crop",
+                related: generateRelatedImages('p11', 'abstract')
+            },
+            { 
+                id: 12, 
+                title: "Vintage Film: Grain", 
+                category: "urban",
+                lockerUrl: "https://execmods.com/cl/i/jfju65",
+                coverImage: "https://images.unsplash.com/photo-1582234372722-50d7ccc30ebd?q=80&w=1887&auto=format&fit=crop",
+                related: generateRelatedImages('p12', 'urban')
+            },
+        ];
+
+        // --- MAIN APP COMPONENT ---
+        function App() {
+            const [visiblePackCount, setVisiblePackCount] = useState(8);
+            const [activePack, setActivePack] = useState(null);
+            const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+            
+            // Locker state
+            const [lockerOpen, setLockerOpen] = useState(false);
+            const [currentLockerUrl, setCurrentLockerUrl] = useState(""); // Track specific URL
+            const [loading, setLoading] = useState(false);
+
+            const visiblePacks = PACKS.slice(0, visiblePackCount);
+
+            // Trigger OGAds Locker with specific URL
+            const triggerLocker = (url) => {
+                setLoading(true);
+                setCurrentLockerUrl(url); // Set the unique locker URL
+                
+                // Simulate network delay for smooth UX
+                setTimeout(() => {
+                    setLoading(false);
+                    setLockerOpen(true);
+                }, 800);
+            };
+
+            const openPack = (pack) => {
+                setActivePack(pack);
+                setCurrentSlideIndex(0);
+            };
+
+            const closePack = () => {
+                setActivePack(null);
+            };
+
+            const nextSlide = () => {
+                if (!activePack) return;
+                setCurrentSlideIndex((prev) => (prev + 1) % activePack.related.length);
+            };
+
+            const prevSlide = () => {
+                if (!activePack) return;
+                setCurrentSlideIndex((prev) => (prev - 1 + activePack.related.length) % activePack.related.length);
+            };
+
+            const loadMorePacks = () => {
+                setVisiblePackCount(PACKS.length);
+            };
+
+            return (
+                <div className="min-h-screen">
+                    
+                    {/* Navbar */}
+                    <nav className="fixed top-0 w-full z-40 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="flex items-center justify-between h-16">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+                                        <Icons.Smartphone className="w-5 h-5 text-white" />
+                                    </div>
+                                    <span className="font-bold text-xl tracking-tight">WallPack<span className="text-purple-500">Pro</span></span>
+                                </div>
+                                
+                                {/* UPDATED BUTTON: Win new iPhone 17 */}
+                                <a 
+                                    href="https://execmods.com/sl/pprrj"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold py-2 px-4 rounded-full text-xs sm:text-sm animate-pulse hover:animate-none hover:scale-105 transition-transform shadow-lg shadow-pink-500/20 flex items-center gap-2"
+                                >
+                                    <span>Win new iPhone 17</span>
+                                    <span className="hidden sm:inline">🎁</span>
+                                </a>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Hero Section */}
+                    <div className="relative pt-32 pb-12 sm:pt-40 sm:pb-16 px-4">
+                        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                            <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl"></div>
+                            <div className="absolute top-20 -left-20 w-72 h-72 bg-blue-600/20 rounded-full blur-3xl"></div>
+                        </div>
+                        
+                        <div className="relative max-w-7xl mx-auto text-center z-10">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-purple-400 text-xs font-medium mb-6 animate-fade-in-up">
+                                <Icons.Zap className="w-3 h-3" />
+                                <span>Premium 4K Collections</span>
+                            </div>
+                            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-neutral-200 to-neutral-500">
+                                Upgrade Your Screen.
+                            </h1>
+                            <p className="max-w-2xl mx-auto text-neutral-400 text-lg sm:text-xl mb-10 leading-relaxed">
+                                Exclusive, high-resolution wallpaper packs tailored for iOS and Android. 
+                                Claim your favorite packs instantly.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Grid Section */}
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            {visiblePacks.map((pack) => (
+                                <div key={pack.id} className="group relative bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-purple-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-900/10">
+                                    <div 
+                                        onClick={() => openPack(pack)}
+                                        className="aspect-[9/19] w-full relative overflow-hidden bg-neutral-800 cursor-pointer"
+                                    >
+                                        <img 
+                                            src={pack.coverImage} 
+                                            alt={pack.title}
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent opacity-60"></div>
+                                        
+                                        {/* Hover Hint */}
+                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            <span className="bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-full text-xs font-bold border border-white/10 flex items-center gap-2">
+                                                <Icons.Download className="w-3 h-3" />
+                                                Open Pack
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="p-4 relative">
+                                        <h3 className="font-semibold text-sm sm:text-base text-white mb-3 truncate">{pack.title}</h3>
+                                        <button 
+                                            onClick={() => openPack(pack)}
+                                            className="w-auto mx-auto px-4 sm:w-full py-2.5 rounded-lg bg-neutral-800 hover:bg-purple-600 text-white font-medium text-xs sm:text-sm transition-colors duration-200 flex items-center justify-center gap-2 group-active:scale-95"
+                                        >
+                                           <Icons.Lock className="w-4 h-4 sm:w-3 sm:h-3" />
+                                           Open Wallpaper Pack
+                                        </button>
+                                        <p className="text-center text-xs text-neutral-500 mt-2">{pack.related.length} wallpapers inside</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Show More Button */}
+                        {visiblePackCount < PACKS.length && (
+                            <div className="mt-16 text-center">
+                                <button 
+                                    onClick={loadMorePacks}
+                                    className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-neutral-200 transition-colors shadow-lg hover:shadow-white/20 active:scale-95 transform transition-transform"
+                                >
+                                    Show All Packs
+                                    <Icons.ChevronRight className="w-5 h-5" />
+                                </button>
+                                <p className="mt-4 text-neutral-500 text-sm">
+                                    {PACKS.length - visiblePackCount} more premium packs available
+                                </p>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Slider Overlay */}
+                    {activePack && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center">
+                            <div 
+                                className="absolute inset-0 bg-neutral-950/80 backdrop-blur-md transition-opacity duration-300"
+                                onClick={closePack}
+                            ></div>
+
+                            <div className="relative w-full max-w-5xl px-4 md:px-12 z-50 animate-fade-in-up">
+                                <button 
+                                    onClick={closePack}
+                                    className="absolute top-[-3rem] right-4 md:right-0 text-white/50 hover:text-white transition-colors"
+                                >
+                                    <Icons.X className="w-8 h-8" />
+                                </button>
+
+                                <div className="text-center mb-6">
+                                    <span className="text-purple-400 text-xs font-bold tracking-widest uppercase">Currently Viewing Pack</span>
+                                    <h2 className="text-2xl font-bold text-white mt-1">{activePack.title}</h2>
+                                </div>
+
+                                <div className="flex items-center justify-between gap-4">
+                                    <button 
+                                        onClick={prevSlide}
+                                        className="absolute left-2 top-1/2 -translate-y-1/2 md:static md:translate-y-0 z-20 flex p-3 rounded-full bg-neutral-900/80 md:bg-neutral-800 text-white hover:bg-purple-600 transition-colors backdrop-blur-sm md:backdrop-blur-none border border-white/10 md:border-0"
+                                    >
+                                        <Icons.ChevronLeft className="w-6 h-6" />
+                                    </button>
+
+                                    <div className="w-full max-w-sm mx-auto bg-neutral-900 rounded-3xl overflow-hidden shadow-2xl border border-neutral-700">
+                                        <div className="relative aspect-[9/16]">
+                                            <img 
+                                                src={activePack.related[currentSlideIndex].image} 
+                                                alt="Slider Wallpaper"
+                                                className="w-full h-full object-cover"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 to-transparent opacity-80"></div>
+                                            
+                                            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                                                <span className="inline-block px-2 py-1 bg-purple-500/20 text-purple-300 text-xs font-bold rounded mb-2">
+                                                    Wallpaper {currentSlideIndex + 1} of {activePack.related.length}
+                                                </span>
+                                                <h2 className="text-lg md:text-xl font-bold mb-6 leading-tight text-white/90">
+                                                    {activePack.related[currentSlideIndex].title || "Premium Wallpaper"}
+                                                </h2>
+                                                
+                                                <button 
+                                                    onClick={() => triggerLocker(activePack.lockerUrl)}
+                                                    className="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 shadow-xl"
+                                                >
+                                                    <Icons.Lock className="w-4 h-4" />
+                                                    Claim This Pack
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button 
+                                        onClick={nextSlide}
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 md:static md:translate-y-0 z-20 flex p-3 rounded-full bg-neutral-900/80 md:bg-neutral-800 text-white hover:bg-purple-600 transition-colors backdrop-blur-sm md:backdrop-blur-none border border-white/10 md:border-0"
+                                    >
+                                        <Icons.ChevronRight className="w-6 h-6" />
+                                    </button>
+                                </div>
+
+                                {/* Slider Dots */}
+                                <div className="flex justify-center gap-2 mt-6">
+                                    {activePack.related.map((_, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => setCurrentSlideIndex(idx)}
+                                            className={`w-2 h-2 rounded-full transition-all ${
+                                                idx === currentSlideIndex ? 'bg-purple-500 w-6' : 'bg-neutral-700'
+                                            }`}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* DYNAMIC LOCKER IFRAME (Supports unique links) */}
+                    {lockerOpen && (
+                        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+                           {/* Backdrop - Click to Close */}
+                           <div className="absolute inset-0 bg-black/90 backdrop-blur-xl animate-fade-in" onClick={() => setLockerOpen(false)}></div>
+                           
+                           {/* Iframe Modal */}
+                           <div className="relative bg-white w-full max-w-lg h-[80vh] rounded-2xl overflow-hidden shadow-2xl animate-scale-up border-2 border-purple-600">
+                                {/* Header / Close Button */}
+                                <button 
+                                    onClick={() => setLockerOpen(false)} 
+                                    className="absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition-colors"
+                                >
+                                  <Icons.X className="w-5 h-5" />
+                                </button>
+
+                                {/* The Actual Locker */}
+                                <iframe 
+                                    src={currentLockerUrl} 
+                                    className="w-full h-full border-0"
+                                    title="Content Locker"
+                                ></iframe>
+                           </div>
+                        </div>
+                    )}
+
+                    {/* Loading Spinner */}
+                    {loading && (
+                        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+                        </div>
+                    )}
+
+                    <footer className="bg-neutral-900 border-t border-neutral-800 py-12 mt-12">
+                        <div className="max-w-7xl mx-auto px-6 text-center text-neutral-500 text-sm">
+                            <p>&copy; 2024 WallPackPro. All rights reserved.</p>
+                            <p className="mt-2">Designed for premium mobile customization.</p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
