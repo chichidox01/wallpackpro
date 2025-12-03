@@ -94,11 +94,15 @@
             },
             { 
                 id: 2, 
-                title: "Samsung Galaxy: Misty Forest", 
+                title: "Samsung Premium Pack: 10 Wallpapers", 
                 category: "nature",
                 lockerUrl: "https://execmods.com/cl/i/jfju65",
-                coverImage: "https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1932&auto=format&fit=crop",
-                related: generateRelatedImages('p2', 'nature')
+                coverImage: "images/11.png",
+                related: Array(10).fill(null).map((_, i) => ({
+                    id: `p2-${i}`,
+                    image: `images/${i + 11}.png`, // i=0 is 11.png, i=9 is 20.png
+                    title: `Samsung Wallpaper #${i + 1}`
+                }))
             },
             { 
                 id: 3, 
