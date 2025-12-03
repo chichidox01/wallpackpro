@@ -106,11 +106,15 @@
             },
             { 
                 id: 3, 
-                title: "Abstract Waves: Deep Ocean", 
+                title: "10 Live Wallpapers Set", 
                 category: "abstract",
                 lockerUrl: "https://execmods.com/cl/i/jfju65",
-                coverImage: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop",
-                related: generateRelatedImages('p3', 'abstract')
+                coverImage: "images/23.png",
+                related: Array(10).fill(null).map((_, i) => ({
+                    id: `p3-${i}`,
+                    image: `images/${i + 23}.png`, // i=0 is 23.png, i=9 is 32.png
+                    title: `Live Wallpaper #${i + 1}`
+                }))
             },
             { 
                 id: 4, 
