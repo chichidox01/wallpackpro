@@ -94,18 +94,6 @@
             },
             { 
                 id: 2, 
-                title: "Samsung Premium Pack: 10 Wallpapers", 
-                category: "nature",
-                lockerUrl: "https://execmods.com/cl/i/jfju65",
-                coverImage: "images/11.png",
-                related: Array(10).fill(null).map((_, i) => ({
-                    id: `p2-${i}`,
-                    image: `images/${i + 11}.png`, // i=0 is 11.png, i=9 is 20.png
-                    title: `Samsung Wallpaper #${i + 1}`
-                }))
-            },
-            { 
-                id: 2, 
                 title: "Samsung Premium Pack: 22 Wallpapers", 
                 category: "nature",
                 lockerUrl: "https://execmods.com/cl/i/jfju65",
@@ -116,7 +104,15 @@
                     title: `Samsung Wallpaper #${i + 1}`
                 }))
             },
-            {
+            { 
+                id: 3, 
+                title: "Abstract Waves: Deep Ocean", 
+                category: "abstract",
+                lockerUrl: "https://execmods.com/cl/i/jfju65",
+                coverImage: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop",
+                related: generateRelatedImages('p3', 'abstract')
+            },
+            { 
                 id: 4, 
                 title: "Mountain Peak: Sunset Glow", 
                 category: "nature",
@@ -479,4 +475,3 @@
     </script>
 </body>
 </html>
-
