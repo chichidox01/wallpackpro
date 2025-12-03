@@ -130,11 +130,15 @@
             },
             { 
                 id: 5, 
-                title: "Urban City: Night Lights", 
-                category: "urban",
+                title: "10 Spectacular Live Wallpapers", 
+                category: "live",
                 lockerUrl: "https://execmods.com/cl/i/jfju65",
-                coverImage: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1964&auto=format&fit=crop",
-                related: generateRelatedImages('p5', 'urban')
+                coverImage: "images/61.png",
+                related: Array(10).fill(null).map((_, i) => ({
+                    id: `p5-${i}`,
+                    image: `images/${i + 61}.png`, // i=0 is 61.png, i=9 is 70.png
+                    title: `Live Wallpaper #${i + 1}`
+                }))
             },
             { 
                 id: 6, 
