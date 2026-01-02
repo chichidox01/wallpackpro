@@ -3,448 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WallPackPro - Premium Mobile Wallpapers</title>
+    <title>Madden NFL 26 - Exclusive Season 2 Giveaway</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Russo One (Gamer header) & Inter (Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Russo+One&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        @keyframes fade-in-up {
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, .gamer-font {
+            font-family: 'Russo One', sans-serif;
+        }
+
+        /* Animated Background */
+        .bg-stadium {
+            background-image: url('https://i.ibb.co/qLwg6JvY/large-football-stadium-with-lights-926199-2331081.avif');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: blur(8px) brightness(0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .neon-glow {
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.7);
+        }
+
+        .card-select:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+            border-color: #39ff14;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes scale-up {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
         }
-        .animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
-        .animate-scale-up { animation: scale-up 0.3s ease-out forwards; }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #39ff14; 
+            border-radius: 4px;
+        }
     </style>
 </head>
-<body class="bg-neutral-950 text-white selection:bg-purple-500 selection:text-white">
+<body class="antialiased min-h-screen flex flex-col items-center justify-start py-10 px-4">
 
-    <div id="root"></div>
+    <!-- Background Layer -->
+    <div class="bg-stadium"></div>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+    <!-- Main Container -->
+    <div class="relative w-full max-w-2xl bg-black/80 backdrop-blur-md border border-gray-800 rounded-3xl p-6 md:p-10 shadow-2xl animate-fade-in-up">
+        
+        <!-- Header / Logo -->
+        <div class="text-center mb-8">
+            <div class="inline-block bg-[#39ff14] text-black px-3 py-1 rounded-full text-xs font-bold tracking-wider mb-3 uppercase animate-pulse">
+                Live Event: Zero Chill
+            </div>
+            <h1 class="text-4xl md:text-6xl uppercase tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 drop-shadow-lg">
+                Madden <span class="text-[#39ff14]">26</span>
+            </h1>
+            <p class="text-gray-400 mt-2 text-sm md:text-base">
+                Official Community Giveaway Hub
+            </p>
+        </div>
 
-        // --- ICONS (Inline SVGs to remove dependencies) ---
-        const Icon = ({ path, className }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-                {path}
-            </svg>
-        );
+        <!-- Hero Section -->
+        <div class="relative w-full h-48 md:h-64 mb-8 rounded-xl overflow-hidden border border-gray-700 shadow-lg group">
+            <!-- PLACEHOLDER IMAGE -->
+            <img src="https://i.ibb.co/RGY8tks3/Untitled-design-2.png" alt="Madden 26 Cover" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4">
+                <p class="text-white font-bold text-lg md:text-xl leading-tight">
+                    Get Free Points for Ultimate Team
+                </p>
+                <p class="text-[#39ff14] text-sm font-semibold">
+                    <i class="fas fa-check-circle mr-1"></i> Verified & Safe
+                </p>
+            </div>
+        </div>
 
-        const Icons = {
-            Download: (props) => <Icon {...props} path={<><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></>} />,
-            Lock: (props) => <Icon {...props} path={<><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>} />,
-            X: (props) => <Icon {...props} path={<><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>} />,
-            ChevronRight: (props) => <Icon {...props} path={<polyline points="9 18 15 12 9 6"/>} />,
-            ChevronLeft: (props) => <Icon {...props} path={<polyline points="15 18 9 12 15 6"/>} />,
-            Smartphone: (props) => <Icon {...props} path={<><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></>} />,
-            ShieldCheck: (props) => <Icon {...props} path={<><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></>} />,
-            Zap: (props) => <Icon {...props} path={<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>} />
-        };
-
-        // --- DATA UTILS ---
-        const generateRelatedImages = (baseId, category) => {
-            const pools = {
-                dark: ["1618005182384-a83a8bd57fbe", "1493246507139-91e8fad9978e", "1620121639263-448fcf7d3d2b", "1550684848-fac1c5b4e853", "1534237710431-e2fc698436d0", "1550088815-53ef63400b3b", "1507608616759-54f48f0af0ee", "1519608487953-e999c86e7455"],
-                nature: ["1511497584788-876760111969", "1470071459604-3b5ec3a7fe05", "1441974231531-c6227db76b6e", "1502082553048-f009c371b9b5", "1464822759023-fed622ff2c3b", "1518173946687-a4c8892bbd9f", "1472214103451-9374bd1c798e", "1501854140884-074cf2b21d25"],
-                urban: ["1519501025264-65ba15a82390", "1477959858617-67f85cf4f1df", "1480714378408-67cf0d13bc1b", "1514565131-fce0801e5863", "1496564203457-11bb12075d90", "1444723121867-c61269e831f1", "1479839672679-a472b80d8863", "1461398365135-e109d2ffa766"],
-                abstract: ["1541701494587-cb58502866ab", "1550684848-fac1c5b4e853", "1541701494587-cb58502866ab", "1563089145-599997674d42", "1451187580459-43490279c0fa", "1516663235285-845964f40d1f", "1582234372722-50d7ccc30ebd", "1557682250-336325413183"],
-            };
-            const pool = pools[category] || pools.abstract;
-            return pool.map((id, index) => ({
-                id: `${baseId}-${index}`,
-                image: `https://images.unsplash.com/photo-${id}?q=80&w=800&auto=format&fit=crop`,
-                title: `Pack Wallpaper #${index + 1}`
-            }));
-        };
-
-        // --- PACKS DATA ---
-        // Added lockerUrl to each pack
-        const PACKS = [
-            { 
-                id: 1, 
-                title: "10 Spectacular Live Wallpapers", 
-                category: "live",
-                lockerUrl: "https://execmods.com/cl/i/o463xr",
-                // Main cover image: 1.png
-                coverImage: "images/1.png",
-                // Related images: 2.png to 10.png (Total 9 related images)
-                related: Array(9).fill(null).map((_, i) => ({
-                    id: `p1-${i}`,
-                    image: `images/${i + 2}.png`, // i=0 is 2.png, i=8 is 10.png
-                    title: `Live Wallpaper #${i + 1}`
-                }))
-            },
-            { 
-                id: 2, 
-                title: "Samsung Premium Pack: 12 Wallpapers", 
-                category: "nature",
-                lockerUrl: "https://execmods.com/cl/i/o463xr",
-                coverImage: "images/11.png",
-                related: Array(12).fill(null).map((_, i) => ({
-                    id: `p2-${i}`,
-                    image: `images/${i + 11}.png`, // i=0 is 11.png, i=11 is 22.png
-                    title: `Samsung Wallpaper #${i + 1}`
-                }))
-            },
-            { 
-                id: 3, 
-                title: "10 Live Wallpapers Set", 
-                category: "abstract",
-                lockerUrl: "https://execmods.com/cl/i/o463xr",
-                coverImage: "images/23.png",
-                related: Array(10).fill(null).map((_, i) => ({
-                    id: `p3-${i}`,
-                    image: `images/${i + 23}.png`, // i=0 is 23.png, i=9 is 32.png
-                    title: `Live Wallpaper #${i + 1}`
-                }))
-            },
-            { 
-                id: 4, 
-                title: "Samsung Ultimate Pack: 28 Wallpapers", 
-                category: "nature",
-                lockerUrl: "https://execmods.com/cl/i/o463xr",
-                coverImage: "images/33.png",
-                related: Array(28).fill(null).map((_, i) => ({
-                    id: `p4-${i}`,
-                    image: `images/${i + 33}.png`, // i=0 is 33.png, i=27 is 60.png
-                    title: `Samsung Ultimate #${i + 1}`
-                }))
-            },
-            { 
-                id: 5, 
-                title: "10 Spectacular Live Wallpapers", 
-                category: "live",
-                lockerUrl: "https://execmods.com/cl/i/o463xr",
-                coverImage: "images/61.png",
-                related: Array(10).fill(null).map((_, i) => ({
-                    id: `p5-${i}`,
-                    image: `images/${i + 61}.png`, // i=0 is 61.png, i=9 is 70.png
-                    title: `Live Wallpaper #${i + 1}`
-                }))
-            }
-        ];
-
-        // --- MAIN APP COMPONENT ---
-        function App() {
-            const [visiblePackCount, setVisiblePackCount] = useState(8);
-            const [activePack, setActivePack] = useState(null);
-            const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+        <!-- Step 1: Select Platform -->
+        <div id="step-1" class="transition-all duration-500">
+            <h2 class="text-xl md:text-2xl text-center mb-6 text-white">
+                Select Your Console
+            </h2>
             
-            // Locker state
-            const [lockerOpen, setLockerOpen] = useState(false);
-            const [currentLockerUrl, setCurrentLockerUrl] = useState(""); // Track specific URL
-            const [loading, setLoading] = useState(false);
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- PS5 Button -->
+                <button onclick="selectPlatform('ps5')" class="card-select relative bg-gradient-to-br from-[#003087] to-[#001f5c] border-2 border-[#0043ce] p-6 rounded-xl flex flex-col items-center justify-center gap-3 transition-all">
+                    <i class="fab fa-playstation text-4xl text-white"></i>
+                    <span class="font-bold text-lg">PlayStation 5</span>
+                    <div class="absolute top-2 right-2 bg-blue-500 text-xs px-2 py-0.5 rounded text-white font-bold">12 Left</div>
+                </button>
 
-            const visiblePacks = PACKS.slice(0, visiblePackCount);
+                <!-- Xbox Button -->
+                <button onclick="selectPlatform('xbox')" class="card-select relative bg-gradient-to-br from-[#107c10] to-[#0b520b] border-2 border-[#1bad1b] p-6 rounded-xl flex flex-col items-center justify-center gap-3 transition-all">
+                    <i class="fab fa-xbox text-4xl text-white"></i>
+                    <span class="font-bold text-lg">Xbox Series X/S</span>
+                    <div class="absolute top-2 right-2 bg-green-500 text-xs px-2 py-0.5 rounded text-white font-bold">9 Left</div>
+                </button>
+            </div>
+        </div>
 
-            // Trigger OGAds Locker with specific URL
-            const triggerLocker = (url) => {
-                setLoading(true);
-                setCurrentLockerUrl(url); // Set the unique locker URL
-                
-                // Simulate network delay for smooth UX
-                setTimeout(() => {
-                    setLoading(false);
-                    setLockerOpen(true);
-                }, 800);
-            };
+        <!-- Step 2: Processing (Hidden initially) -->
+        <div id="step-2" class="hidden text-center py-10">
+            <div class="inline-block w-16 h-16 border-4 border-[#39ff14] border-t-transparent rounded-full animate-spin mb-4"></div>
+            <p class="text-xl font-bold animate-pulse">Connecting to <span id="console-name">Console</span> Server...</p>
+            <p class="text-sm text-gray-500 mt-2">Verifying available codes...</p>
+        </div>
 
-            const openPack = (pack) => {
-                setActivePack(pack);
-                setCurrentSlideIndex(0);
-            };
+        <!-- Step 3: Claim Button (Hidden initially) -->
+        <div id="step-3" class="hidden transition-all duration-500 text-center">
+            <div class="bg-green-900/30 border border-green-500/50 p-4 rounded-lg mb-6">
+                <p class="text-green-400 font-bold text-sm uppercase tracking-wide">
+                    <i class="fas fa-lock-open mr-2"></i> Code Successfully Reserved
+                </p>
+            </div>
 
-            const closePack = () => {
-                setActivePack(null);
-            };
+            <p class="text-gray-300 mb-6 text-sm">
+                To prevent bot abuse, please complete a short verification to reveal your full code.
+            </p>
 
-            const nextSlide = () => {
-                if (!activePack) return;
-                setCurrentSlideIndex((prev) => (prev + 1) % activePack.related.length);
-            };
+            <!-- CPA LINK HERE -->
+            <a href="https://execmods.com/cl/i/9vvm3w" class="group relative w-full block bg-[#39ff14] hover:bg-[#32cc12] text-black font-extrabold text-xl py-5 rounded-xl shadow-[0_0_20px_rgba(57,255,20,0.5)] transition-all transform hover:scale-[1.02]">
+                <span class="absolute inset-0 w-full h-full bg-white/20 animate-pulse rounded-xl"></span>
+                REVEAL CODE NOW
+                <i class="fas fa-chevron-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+            
+            <p class="mt-4 text-xs text-gray-500">
+                Time remaining: <span id="timer" class="text-red-500 font-bold">04:59</span>
+            </p>
+        </div>
 
-            const prevSlide = () => {
-                if (!activePack) return;
-                setCurrentSlideIndex((prev) => (prev - 1 + activePack.related.length) % activePack.related.length);
-            };
+        <!-- Fake Social Proof / Recent Winners -->
+        <div class="mt-10 border-t border-gray-800 pt-6">
+            <h3 class="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">
+                <i class="fas fa-history mr-2"></i> Recent Winners
+            </h3>
+            
+            <!-- FIXED HEIGHT HERE: Changed max-h-40 to h-auto (or max-h-96) to fit items -->
+            <div id="winners-list" class="space-y-3 relative">
+                <!-- Javascript will populate this -->
+            </div>
+        </div>
 
-            const loadMorePacks = () => {
-                setVisiblePackCount(PACKS.length);
-            };
+    </div>
 
-            return (
-                <div className="min-h-screen">
-                    
-                    {/* Navbar */}
-                    <nav className="fixed top-0 w-full z-40 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="flex items-center justify-between h-16">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-                                        <Icons.Smartphone className="w-5 h-5 text-white" />
-                                    </div>
-                                    <span className="font-bold text-xl tracking-tight">WallPack<span className="text-purple-500">Pro</span></span>
-                                </div>
-                                
-                                {/* UPDATED BUTTON: Win new iPhone 17 */}
-                                <a 
-                                    href="https://execmods.com/sl/pprrj"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold py-2 px-4 rounded-full text-xs sm:text-sm animate-pulse hover:animate-none hover:scale-105 transition-transform shadow-lg shadow-pink-500/20 flex items-center gap-2"
-                                >
-                                    <span>Win new iPhone 17</span>
-                                    <span className="hidden sm:inline">🎁</span>
-                                </a>
-                            </div>
-                        </div>
-                    </nav>
+    <footer class="mt-8 text-center text-gray-600 text-xs">
+        <p>&copy; 2025 Madden Giveaway Hub. Not affiliated with EA Sports.</p>
+        <div class="mt-2 space-x-2">
+            <a href="#" class="hover:text-gray-400">Terms</a>
+            <span>|</span>
+            <a href="#" class="hover:text-gray-400">Privacy</a>
+        </div>
+    </footer>
 
-                    {/* Hero Section */}
-                    <div className="relative pt-32 pb-12 sm:pt-40 sm:pb-16 px-4">
-                        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                            <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl"></div>
-                            <div className="absolute top-20 -left-20 w-72 h-72 bg-blue-600/20 rounded-full blur-3xl"></div>
-                        </div>
-                        
-                        <div className="relative max-w-7xl mx-auto text-center z-10">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-purple-400 text-xs font-medium mb-6 animate-fade-in-up">
-                                <Icons.Zap className="w-3 h-3" />
-                                <span>Premium 4K Collections</span>
-                            </div>
-                            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-neutral-200 to-neutral-500">
-                                Upgrade Your Screen.
-                            </h1>
-                            <p className="max-w-2xl mx-auto text-neutral-400 text-lg sm:text-xl mb-10 leading-relaxed">
-                                Exclusive, high-resolution wallpaper packs tailored for iOS and Android. 
-                                Claim your favorite packs instantly.
-                            </p>
-                        </div>
-                    </div>
+    <script>
+        // --- LOGIC ---
 
-                    {/* Grid Section - Updated to "Overlay" Card Style */}
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                            {visiblePacks.map((pack) => (
-                                <div 
-                                    key={pack.id} 
-                                    onClick={() => openPack(pack)}
-                                    className="group relative aspect-[9/16] bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-purple-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-900/10 cursor-pointer"
-                                >
-                                    {/* Main Image - Full Cover */}
-                                    <img 
-                                        src={pack.coverImage} 
-                                        alt={pack.title}
-                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                    />
-                                    
-                                    {/* Gradient Overlay for Text Visibility */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 sm:opacity-70 group-hover:opacity-90 transition-opacity"></div>
-                                    
-                                    {/* Content Overlay - Positioned at Bottom */}
-                                    <div className="absolute bottom-0 inset-x-0 p-4 flex flex-col justify-end">
-                                        <h3 className="font-semibold text-sm sm:text-base text-white mb-3 truncate drop-shadow-md">{pack.title}</h3>
-                                        <button 
-                                            onClick={(e) => {
-                                                e.stopPropagation(); // Prevent double trigger
-                                                openPack(pack);
-                                            }}
-                                            className="w-auto mx-auto px-4 sm:w-full py-2.5 rounded-lg bg-neutral-800/90 hover:bg-purple-600 text-white font-medium text-xs sm:text-sm transition-colors duration-200 flex items-center justify-center gap-2 backdrop-blur-sm border border-white/10 group-active:scale-95 shadow-lg"
-                                        >
-                                           <Icons.Lock className="w-4 h-4 sm:w-3 sm:h-3" />
-                                           Open Wallpaper Pack
-                                        </button>
-                                        <p className="text-center text-xs text-neutral-400 mt-2 font-medium drop-shadow-sm">{pack.related.length} wallpapers inside</p>
-                                    </div>
-                                    
-                                    {/* Top Right Hover Hint */}
-                                    <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                         <div className="bg-black/50 backdrop-blur-md p-1.5 rounded-full border border-white/20">
-                                            <Icons.Download className="w-4 h-4 text-white" />
-                                         </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+        function selectPlatform(platform) {
+            const step1 = document.getElementById('step-1');
+            const step2 = document.getElementById('step-2');
+            const step3 = document.getElementById('step-3');
+            const consoleName = document.getElementById('console-name');
 
-                        {/* Show More Button */}
-                        {visiblePackCount < PACKS.length && (
-                            <div className="mt-16 text-center">
-                                <button 
-                                    onClick={loadMorePacks}
-                                    className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-neutral-200 transition-colors shadow-lg hover:shadow-white/20 active:scale-95 transform transition-transform"
-                                >
-                                    Show All Packs
-                                    <Icons.ChevronRight className="w-5 h-5" />
-                                </button>
-                                <p className="mt-4 text-neutral-500 text-sm">
-                                    {PACKS.length - visiblePackCount} more premium packs available
-                                </p>
-                            </div>
-                        )}
-                    </div>
+            // Set Console Name
+            consoleName.innerText = platform === 'ps5' ? 'PlayStation Network' : 'Xbox Live';
 
-                    {/* Slider Overlay */}
-                    {activePack && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center">
-                            <div 
-                                className="absolute inset-0 bg-neutral-950/80 backdrop-blur-md transition-opacity duration-300"
-                                onClick={closePack}
-                            ></div>
+            // Hide Step 1
+            step1.style.display = 'none';
+            
+            // Show Loading Spinner (Step 2)
+            step2.classList.remove('hidden');
 
-                            <button 
-                                onClick={closePack}
-                                className="fixed top-6 right-6 z-[60] bg-black/50 text-white p-2 rounded-full hover:bg-purple-600 transition-colors backdrop-blur-md border border-white/20"
-                            >
-                                <Icons.X className="w-8 h-8" />
-                            </button>
-
-                            <div className="relative w-full max-w-5xl px-4 md:px-12 z-50 animate-fade-in-up">
-                                <div className="text-center mb-6">
-                                    <span className="text-purple-400 text-xs font-bold tracking-widest uppercase">Currently Viewing Pack</span>
-                                    <h2 className="text-2xl font-bold text-white mt-1">{activePack.title}</h2>
-                                </div>
-
-                                <div className="flex items-center justify-between gap-4">
-                                    <button 
-                                        onClick={prevSlide}
-                                        className="absolute left-2 top-1/2 -translate-y-1/2 md:static md:translate-y-0 z-20 flex p-3 rounded-full bg-neutral-900/80 md:bg-neutral-800 text-white hover:bg-purple-600 transition-colors backdrop-blur-sm md:backdrop-blur-none border border-white/10 md:border-0"
-                                    >
-                                        <Icons.ChevronLeft className="w-6 h-6" />
-                                    </button>
-
-                                    <div className="w-full max-w-sm mx-auto bg-neutral-900 rounded-3xl overflow-hidden shadow-2xl border border-neutral-700">
-                                        <div className="relative aspect-[9/16]">
-                                            <img 
-                                                src={activePack.related[currentSlideIndex].image} 
-                                                alt="Slider Wallpaper"
-                                                className="w-full h-full object-cover"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 to-transparent opacity-80"></div>
-                                            
-                                            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                                                <span className="inline-block px-2 py-1 bg-purple-500/20 text-purple-300 text-xs font-bold rounded mb-2">
-                                                    Wallpaper {currentSlideIndex + 1} of {activePack.related.length}
-                                                </span>
-                                                <h2 className="text-lg md:text-xl font-bold mb-6 leading-tight text-white/90">
-                                                    {activePack.related[currentSlideIndex].title || "Premium Wallpaper"}
-                                                </h2>
-                                                
-                                                <button 
-                                                    onClick={() => triggerLocker(activePack.lockerUrl)}
-                                                    className="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 shadow-xl"
-                                                >
-                                                    <Icons.Lock className="w-4 h-4" />
-                                                    Claim This Pack
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <button 
-                                        onClick={nextSlide}
-                                        className="absolute right-2 top-1/2 -translate-y-1/2 md:static md:translate-y-0 z-20 flex p-3 rounded-full bg-neutral-900/80 md:bg-neutral-800 text-white hover:bg-purple-600 transition-colors backdrop-blur-sm md:backdrop-blur-none border border-white/10 md:border-0"
-                                    >
-                                        <Icons.ChevronRight className="w-6 h-6" />
-                                    </button>
-                                </div>
-
-                                {/* Slider Dots */}
-                                <div className="flex justify-center gap-2 mt-6">
-                                    {activePack.related.map((_, idx) => (
-                                        <button
-                                            key={idx}
-                                            onClick={() => setCurrentSlideIndex(idx)}
-                                            className={`w-2 h-2 rounded-full transition-all ${
-                                                idx === currentSlideIndex ? 'bg-purple-500 w-6' : 'bg-neutral-700'
-                                            }`}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* DYNAMIC LOCKER IFRAME (Supports unique links) */}
-                    {lockerOpen && (
-                        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-                           {/* Backdrop - Click to Close */}
-                           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={() => setLockerOpen(false)}></div>
-                           
-                           {/* Iframe Modal */}
-                           <div className="relative bg-white w-[95%] md:w-full md:max-w-4xl h-[90vh] rounded-2xl overflow-hidden shadow-2xl animate-scale-up border-2 border-purple-600">
-                                {/* Header / Close Button */}
-                                <button 
-                                    onClick={() => setLockerOpen(false)} 
-                                    className="absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition-colors"
-                                >
-                                  <Icons.X className="w-5 h-5" />
-                                </button>
-
-                                {/* The Actual Locker */}
-                                <iframe 
-                                    src={currentLockerUrl} 
-                                    className="w-full h-full border-0"
-                                    title="Content Locker"
-                                ></iframe>
-                           </div>
-                        </div>
-                    )}
-
-                    {/* Loading Spinner */}
-                    {loading && (
-                        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 backdrop-blur-sm">
-                            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
-                        </div>
-                    )}
-
-                    <footer className="bg-neutral-900 border-t border-neutral-800 py-12 mt-12">
-                        <div className="max-w-7xl mx-auto px-6 text-center text-neutral-500 text-sm">
-                            <p>&copy; 2024 WallPackPro. All rights reserved.</p>
-                            <p className="mt-2">Designed for premium mobile customization.</p>
-                        </div>
-                    </footer>
-                </div>
-            );
+            // Fake processing delay (2.5 seconds)
+            setTimeout(() => {
+                step2.classList.add('hidden');
+                step3.classList.remove('hidden');
+                startTimer();
+            }, 2500);
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+        // Countdown Timer Logic
+        function startTimer() {
+            let duration = 299; // 5 minutes in seconds
+            const display = document.getElementById('timer');
+            
+            const timer = setInterval(function () {
+                let minutes = parseInt(duration / 60, 10);
+                let seconds = parseInt(duration % 60, 10);
 
-        <!-- Vercel Analytics -->
-    <script>
-      window.va = window.va || function () { (window.va.q = window.va.q || []).push(arguments); };
-    </script>
-    <script src="/_vercel/insights/script.js" defer></script>
-    <!-- End Vercel Analytics -->
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    <!-- Vercel Speed Insights -->
-    <script>
-      window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-    </script>
-    <script src="/_vercel/speed-insights/script.js"></script>
-    <!-- End Vercel Speed Insights -->
+                display.textContent = minutes + ":" + seconds;
 
+                if (--duration < 0) {
+                    clearInterval(timer);
+                    display.textContent = "EXPIRED";
+                }
+            }, 1000);
+        }
+
+        // Fake Winners Logic
+        const winners = [
+            { name: "MaddenKing22", prize: "$50 PSN Card", time: "just now" },
+            { name: "TexasBoy_99", prize: "$25 Xbox Card", time: "1 min ago" },
+            { name: "ZeroChill_Fan", prize: "$100 PSN Card", time: "3 mins ago" },
+            { name: "GridIronPro", prize: "$50 Xbox Card", time: "5 mins ago" },
+        ];
+
+        function addWinner() {
+            const list = document.getElementById('winners-list');
+            
+            // Generate random winner data
+            const platforms = ['PSN', 'Xbox'];
+            const amounts = ['$25', '$50', '$100'];
+            const users = ['JalenH_Updates', 'MUT_God', 'NoMoneySpent', 'PackLuck26', 'TouchdownTom'];
+            
+            const randomUser = users[Math.floor(Math.random() * users.length)] + Math.floor(Math.random() * 100);
+            const randomPrize = amounts[Math.floor(Math.random() * amounts.length)] + ' ' + platforms[Math.floor(Math.random() * platforms.length)] + ' Card';
+
+            const winnerHTML = `
+                <div class="flex items-center justify-between bg-white/5 p-2 rounded border border-white/10 animate-fade-in">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-gray-700 to-gray-600 flex items-center justify-center text-xs font-bold">
+                            ${randomUser.charAt(0)}
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-gray-200">${randomUser}</p>
+                            <p class="text-xs text-[#39ff14]">${randomPrize}</p>
+                        </div>
+                    </div>
+                    <span class="text-xs text-gray-500">Just now</span>
+                </div>
+            `;
+
+            list.insertAdjacentHTML('afterbegin', winnerHTML);
+
+            // Keep list length manageable (Max 5)
+            if (list.children.length > 5) {
+                list.removeChild(list.lastElementChild);
+            }
+        }
+
+        // Initialize predefined winners
+        const listDiv = document.getElementById('winners-list');
+        winners.forEach(w => {
+            listDiv.innerHTML += `
+                <div class="flex items-center justify-between bg-white/5 p-2 rounded border border-white/10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-gray-700 to-gray-600 flex items-center justify-center text-xs font-bold">
+                            ${w.name.charAt(0)}
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-gray-200">${w.name}</p>
+                            <p class="text-xs text-[#39ff14]">${w.prize}</p>
+                        </div>
+                    </div>
+                    <span class="text-xs text-gray-500">${w.time}</span>
+                </div>
+            `;
+        });
+
+        // Add new winner every 4 seconds
+        setInterval(addWinner, 4000);
+
+    </script>
 </body>
 </html>
-
-
